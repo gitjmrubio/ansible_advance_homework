@@ -1,0 +1,4 @@
+[workstation]
+workstation-f4c8.rhpds.opentlc.com ansible_connection=ssh ansible_ssh_user=cloud-user  ansible_ssh_private_key_file=/root/.ssh/openstack.pem
+[awsbastion]
+bastion.8029.example.opentlc.com ansible_connection=ssh ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/root/.ssh/openstack.pem
