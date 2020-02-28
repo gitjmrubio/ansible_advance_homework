@@ -1,4 +1,5 @@
-- name: Create Homework Assignment project 
+#- name: Create Homework Assignment project 
+# FIRST LINE WAS NOT COMMENTED AND AFFECTS PLAYBOOK EXECUTION
 # Use tower module or tower-cli to create Ansible Tower project. Name of the project is specifed in ./vars/main.yml
 
 - name: Machine Credentail to connect to workstation using openstack.pub
@@ -11,6 +12,7 @@
     tower_username: admin
     tower_password: r3dh4t1!
     ssh_key_data: "/root/.ssh/openstack.pem"
+    #ssh_key_data: "{{ lookup('file', '/root/.ssh/openstack.pem') }}"
     username: cloud-user
 
 - name: Create Inventory
@@ -40,8 +42,11 @@
     tower_username: admin
     tower_password: r3dh4t1!
     tower_verify_ssl: no
-    ssh_key_data: /root/.ssh/mykey.pem
+    #ssh_key_data: /root/.ssh/mykey.pem
+    ssh_key_data: /root/.ssh/openstack.pem
+    #ssh_key_data: "{{ lookup('file', '/root/.ssh/openstack.pem') }}"
     username: "{{ opentlc_login }}"
+    become_method: sudo
 
 - name: Remove secret
   file:
