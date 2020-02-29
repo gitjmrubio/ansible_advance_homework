@@ -14,7 +14,7 @@
         mode: 0755
 
     - name: get script jq
-      get_url: 
+      get_url:
         url: "{{ param_repo_base }}/scripts/jq-linux64"
         dest: /root/bin/jq
         mode: 0755
@@ -47,4 +47,5 @@
         chdir: /root
     - name: Wait for mail
       pause:
-        minutes: 10 
+        #minutes: 10
+        minutes: 2
