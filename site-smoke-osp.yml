@@ -3,21 +3,26 @@
   gather_facts: false
   tasks:
   - name: OpenStack servers
-    os_server_facts:
+#    os_server_facts:
+    os_server_info:
      cloud: ospcloud
      server: 'frontend'
     register: openstack_info
     tags:
       - osp.smoke
+
   - name: Curl website
     uri:
-     url: "http://{{item.public_v4}}"
-     return_content: yes
-    with_items:
-      - "{{ openstack_info.ansible_facts.openstack_servers }}"
+#     url: "http://{{item.public_v4}}"
+     url: "http://{{ openstack_info.openstack_servers[0].public_v4 }}/index.html"
+#     return_content: yes
+     return_content: true
+#    with_items:
+#      - "{{ openstack_info.ansible_facts.openstack_servers }}"
     register: webpage
-
- 
-    failed_when: "'Ansible has done its job ' not in webpage.content"
+#    failed_when: "'Ansible has done its job ' not in webpage.content"
+    failed_when:
+    - "'Ansible has done its job ' not in webpage.content"
+    - webpage.status != 200
     tags:
       - osp.smoke

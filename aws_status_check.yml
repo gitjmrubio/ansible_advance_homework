@@ -1,6 +1,7 @@
-- hosts: tag_instance_filter_three_tier_app_miguel_rubioroman_atos_net
+#- hosts: tag_instance_filter_three_tier_app_miguel_rubioroman_atos_net
+- hosts: tag_instance_filter_three_tier_app_*
   gather_facts: false
-  become: false
+#  become: false
   tasks:
   - name: Check the instances status
     wait_for:

@@ -1,6 +1,7 @@
 - hosts: tag_AnsibleGroup_bastions
-  gather_facts: true
-  become: true
+#  gather_facts: true
+  gather_facts: false
+#  become: true
   tasks:
   - name: Install required packages 
     yum: 
@@ -16,11 +17,13 @@
      name: ansible-tower-cli
      state: latest
   - name: List key files
-    shell: (cd /root/.ssh; find . -maxdepth 1 -type f -iname '*key.pem')| cut -d'/' -f2
+#    shell: (cd /root/.ssh; find . -maxdepth 1 -type f -iname '*key.pem')| cut -d'/' -f2
+    shell: (find /root/.ssh -maxdepth 1 -type f -iname '*key.pem')
     register: file_to_copy
   - name: get Key
     slurp:
-      src: /root/.ssh/{{ file_to_copy.stdout }}
+#      src: /root/.ssh/{{ file_to_copy.stdout }}
+      src: "{{ file_to_copy.stdout }}"
     register: keyfile
   - name: Tower Creds key file
     tower_credential:

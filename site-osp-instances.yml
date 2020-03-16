@@ -1,4 +1,5 @@
 - hosts: workstation
+  gather_facts: false
   become: yes
   vars_files:
    - ./roles/osp-servers/vars/main.yml
